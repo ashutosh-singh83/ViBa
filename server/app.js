@@ -15,7 +15,7 @@ app.use(cors());
 
 const router = require("./routes/router");
 app.use(router);
-const port = 8005;
+const port = process.env.PORT || 8005;
 
 const Products = require("./models/productsSchema");
 const DefaultData = require("./defaultdata");
