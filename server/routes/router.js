@@ -5,18 +5,21 @@ const User = require("../models/userSchema");
 const bcrypt = require("bcryptjs");
 const authenicate = require("../middleware/authenticate");
 
+const Razorpay = require("razorpay");
+const crypto = require("crypto");
+
 // router.get("/",(req,res)=>{
 //     res.send("this is testing routes");
 // });
-
 
 // get the products data
 
 router.get("/getproducts", async (req, res) => {
     try {
-        const producstdata = await products.find();
-        console.log(producstdata + "data mila hain");
-        res.status(201).json(producstdata);
+        const productsdata = await products.find();
+        //console.log(producstdata + "data mila hain");
+        console.log("data mila hain");
+        res.status(201).json(productsdata);
     } catch (error) {
         console.log("error" + erroir.message);
     }
@@ -29,7 +32,7 @@ router.post("/register", async (req, res) => {
     const { fname, email, mobile, password, cpassword } = req.body;
 
     if (!fname || !email || !mobile || !password || !cpassword) {
-        res.status(422).json({ error: "filll the all details" });
+        res.status(422).json({ error: "fill the all details" });
         console.log("bhai nathi present badhi details");
     };
 
@@ -162,7 +165,46 @@ router.get("/cartdetails", authenicate, async (req, res) => {
     }
 });
 
-
+//for payment integration
+router.post("/order", async (req, res) => {
+    try {
+      const razorpay = new Razorpay({
+        key_id: process.env.RAZORPAY_ID_KEY,
+        key_secret: process.env.RAZORPAY_SECRET_KEY,
+      });
+  
+      const options = req.body;
+      const order = await razorpay.orders.create(options);
+  
+      if (!order) {
+        return res.status(500).send("Error");
+      }
+  
+      res.json(order);
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Error");
+    }
+  });
+  
+  router.post("/order/validate", async (req, res) => {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
+      req.body;
+  
+    const sha = crypto.createHmac("sha256", process.env.RAZORPAY_SECRET_KEY);
+    //order_id + "|" + razorpay_payment_id
+    sha.update(`${razorpay_order_id}|${razorpay_payment_id}`);
+    const digest = sha.digest("hex");
+    if (digest !== razorpay_signature) {
+      return res.status(400).json({ msg: "Transaction is not legit!" });
+    }
+  
+    res.json({
+      msg: "success",
+      orderId: razorpay_order_id,
+      paymentId: razorpay_payment_id,
+    });
+  });
 
 // get user is login or not
 router.get("/validuser", authenicate, async (req, res) => {
