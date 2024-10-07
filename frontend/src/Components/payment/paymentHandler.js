@@ -22,7 +22,7 @@ export const paymentHandler = async (price, e) => {
      key: "rzp_test_tdA8dnYYhzqLRJ", // Enter the Key ID generated from the Dashboard
      amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
      currency,
-     name: "Acme Corp", //your business name
+     name: "ViBa", //your business name
      description: "Test Transaction",
      image: "https://drive.google.com/file/d/1gD-FQPDTzk4rLU0VBD_ZjeL2FWwg0u1l/view?usp=sharing",
      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
