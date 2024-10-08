@@ -21,7 +21,7 @@ router.get("/getproducts", async (req, res) => {
         console.log("data mila hain");
         res.status(201).json(productsdata);
     } catch (error) {
-        console.log("error" + erroir.message);
+        console.log("error" + error.message);
     }
 });
 

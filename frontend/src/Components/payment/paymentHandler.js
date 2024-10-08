@@ -4,7 +4,7 @@ export const paymentHandler = async (price, e) => {
     const amount = price * 100; // Convert to paise for INR
     const currency = "INR";
     const receiptId = "qwsaq1";
-   const response = await fetch("/order", {
+   const response = await fetch("https://viba-backend.onrender.com/order", {
      method: "POST",
      body: JSON.stringify({
        amount,
@@ -32,7 +32,7 @@ export const paymentHandler = async (price, e) => {
        };
 
        const validateRes = await fetch(
-         "/order/validate",
+         "https://viba-backend.onrender.com/order/validate",
          {
            method: "POST",
            body: JSON.stringify(body),
