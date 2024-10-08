@@ -11,8 +11,7 @@ const Option = ({ deletedata, get }) => {
     // console.log(account);
 
     const removedata = async (id) => {
-        try {
-            const res = await fetch(`https://viba-backend.onrender.com/remove/${id}`, {
+        try {const res = await fetch(`/remove/${id}`,  {
                 method: "GET",
                 headers: {
                     Accept: "application/json",

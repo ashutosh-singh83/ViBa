@@ -34,7 +34,7 @@ const Signup = () => {
 
         const { fname, email, mobile, password, cpassword } = udata;
         try {
-            const res = await fetch("https://viba-backend.onrender.com/register", {
+            const res = await fetch("/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

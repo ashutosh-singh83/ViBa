@@ -61,7 +61,7 @@ const Navbaar = () => {
     const { account, setAccount } = useContext(Logincontext);
 
     const getdetailsvaliduser = async () => {
-        const res = await fetch("https://viba-backend.onrender.com/validuser", {
+        const res = await fetch("/validuser", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -88,7 +88,7 @@ const Navbaar = () => {
 
     // for logout
     const logoutuser = async () => {
-        const res2 = await fetch("https://viba-backend.onrender.com/logout", {
+        const res2 = await fetch("/logout", {
             method: "GET",
             headers: {
                 Accept: "application/json",

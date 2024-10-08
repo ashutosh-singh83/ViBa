@@ -34,7 +34,7 @@ const Sign_in = () => {
         const { email, password } = logdata;
         // console.log(email);
         try {
-            const res = await fetch("https://viba-backend.onrender.com/login", {
+            const res = await fetch("/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
